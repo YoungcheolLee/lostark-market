@@ -5,8 +5,10 @@ export interface MarketOption {
     Classes: string[];
 }
 
-interface Category extends CategoryItem{
+interface Category{
     Subs: CategoryItem[];
+    Code: number;
+    COdeName: string;
 }
 
 interface CategoryItem {
