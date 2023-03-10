@@ -8,7 +8,7 @@ export interface MarketOption {
 interface Category{
     Subs: CategoryItem[];
     Code: number;
-    COdeName: string;
+    CodeName: string;
 }
 
 interface CategoryItem {
