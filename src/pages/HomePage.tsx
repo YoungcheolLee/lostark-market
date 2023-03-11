@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { MarketOption, RequestMarketItems } from "../interfaces";
 
 export const HomePage = () => {
+  const [marketOption, setMarketOption] = useState<MarketOption>();
+
   const getMarketOption = async () => {
-    const marketOptionResponse = await axios.get<MarketOption>(
+    const marketOptionResponse = await axios.get(
       "https://developer-lostark.game.onstove.com/markets/options",
       {
         headers: {
@@ -13,7 +15,7 @@ export const HomePage = () => {
         },
       }
     );
-    console.log("marketOptionResponse", marketOptionResponse.data);
+    setMarketOption(marketOptionResponse.data);
   };
 
   const postMarketOption = async () => {
@@ -49,6 +51,22 @@ export const HomePage = () => {
   return (
     <div>
       <h2>LostArk 거래소</h2>
+      <div>
+        {marketOption?.Categories.map((item, idx: number) => (
+          <div>
+            <div>{item.Code}</div>
+            <div>{item.CodeName}</div>
+            <div>
+              {item.Subs.map((subsItem) => (
+                <div>
+                  <div>{subsItem.Code}</div>
+                  <div>{subsItem.CodeName}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
       <input type={"text"} />
       <button onClick={handleClick}>검색</button>
     </div>
