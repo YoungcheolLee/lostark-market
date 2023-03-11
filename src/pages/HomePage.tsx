@@ -4,6 +4,7 @@ import { MarketOption, RequestMarketItems } from "../interfaces";
 
 export const HomePage = () => {
   const [marketOption, setMarketOption] = useState<MarketOption>();
+  const [currentOption, setCurrentOption] = useState<RequestMarketItems>();
 
   const getMarketOption = async () => {
     const marketOptionResponse = await axios.get(
@@ -19,10 +20,12 @@ export const HomePage = () => {
   };
 
   const postMarketOption = async () => {
-    const myParams: RequestMarketItems = {
-      CategoryCode: 40000,
-    };
-    const postOptionResponse = await axios.post(
+    const myParams: RequestMarketItems = currentOption
+      ? currentOption
+      : {
+          CategoryCode: 20000,
+        };
+    const marketItemResponse = await axios.post(
       "https://developer-lostark.game.onstove.com/markets/items",
       myParams,
       {
@@ -32,7 +35,7 @@ export const HomePage = () => {
         },
       }
     );
-    console.log("postOptionResponse", postOptionResponse);
+    console.log("marketItemResponse", marketItemResponse);
   };
 
   useEffect(() => {
@@ -48,12 +51,24 @@ export const HomePage = () => {
     }
   };
 
+  const handleClickCategory = (categoryCode: number) => {
+    const requestMarketItem: RequestMarketItems = {
+      CategoryCode: categoryCode,
+    };
+
+    setCurrentOption(requestMarketItem);
+  };
+
   return (
     <div>
       <h2>LostArk 거래소</h2>
       <div>
         {marketOption?.Categories.map((item, idx: number) => (
-          <div>
+          <button
+            onClick={(e) => {
+              handleClickCategory(item.Code);
+            }}
+          >
             <div>{item.Code}</div>
             <div>{item.CodeName}</div>
             <div>
@@ -64,7 +79,7 @@ export const HomePage = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </button>
         ))}
       </div>
       <input type={"text"} />
