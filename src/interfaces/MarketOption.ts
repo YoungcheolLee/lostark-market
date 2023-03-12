@@ -1,10 +1,13 @@
 export interface MarketOption {
   Categories: Category[];
-
-  ItemGrades: string[];
-  ItemTiers: number[];
   Classes: string[];
+  
+  ItemGrades: string[];
+  ItemTiers: number[]; // 0 / 1 / 2 / 3
 }
+
+
+
 
 interface Category {
   Subs: CategoryItem[];
