@@ -5,12 +5,11 @@ export interface RequestMarketItems {
     // 반영되는 검색 옵션
     CategoryCode?: number;
     CharacterClass?: string;
-
-    // 미반영 옵션
     ItemTier?: number;
     ItemGrade?: string;
     ItemName?: string;
 
+    // 미반영 검색 옵션
     Sort?: Sort;
     PageNo?: number;
     SortCondition?: SortCondition;

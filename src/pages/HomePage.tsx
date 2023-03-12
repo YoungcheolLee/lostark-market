@@ -70,28 +70,81 @@ export const HomePage = () => {
     setCurrentOption(requestMarketItem);
   };
 
+  const handleClickTier = (item: number) => {
+    const requestMarketItem: RequestMarketItems = {
+      ...currentOption,
+      ItemTier: item,
+    };
+
+    setCurrentOption(requestMarketItem);
+  };
+
+  const handleClickGrade = (item: string) => {
+    const requestMarketItem: RequestMarketItems = {
+      ...currentOption,
+      ItemGrade: item,
+    };
+
+    setCurrentOption(requestMarketItem);
+  };
+
+  const handleChangeItemName = (item: string) => {
+    const requestMarketItem: RequestMarketItems = {
+      ...currentOption,
+      ItemName: item,
+    };
+
+    setCurrentOption(requestMarketItem);
+  };
+
   return (
     <div>
       <h2>LostArk 거래소</h2>
       <div>
-        {marketOption?.Categories.map((item, idx: number) => (
-          <button
-            key={idx}
-            onClick={(e) => {
-              handleClickCategory(item.Code);
-            }}
-          >
-            <div>아이템코드: {item.Code}</div>
-            <div>코드네임:{item.CodeName}</div>
-          </button>
-        ))}
-        {marketOption?.Classes.map((item, idx: number) => (
-          <button key={idx} onClick={() => handleClickClass(item)}>
-            {item}
-          </button>
-        ))}
+        <div>
+          <p>카테고리</p>
+          {marketOption?.Categories.map((item, idx: number) => (
+            <button
+              key={idx}
+              onClick={(e) => {
+                handleClickCategory(item.Code);
+              }}
+            >
+              <div>{item.Code}</div>
+              <div>{item.CodeName}</div>
+            </button>
+          ))}
+        </div>
+        <div>
+          <p>캐릭터 클래스</p>
+          {marketOption?.Classes.map((item, idx: number) => (
+            <button key={idx} onClick={() => handleClickClass(item)}>
+              {item}
+            </button>
+          ))}
+        </div>
+        <div>
+          <p>아이템 티어</p>
+          {marketOption?.ItemTiers.map((item, idx) => (
+            <button key={idx} onClick={() => handleClickTier(item)}>
+              {item}
+            </button>
+          ))}
+        </div>
+        <div>
+          <p>아이템 등급</p>
+          {marketOption?.ItemGrades.map((item, idx) => (
+            <button key={idx} onClick={() => handleClickGrade(item)}>
+              {item}
+            </button>
+          ))}
+        </div>
       </div>
-      <input type={"text"} />
+      <input
+        type={"text"}
+        value={currentOption?.ItemName}
+        onChange={(e) => handleChangeItemName(e.target.value)}
+      />
       <button onClick={handleClickSearch}>검색</button>
     </div>
   );
