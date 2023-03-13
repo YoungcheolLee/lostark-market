@@ -16,3 +16,7 @@
 .Main-link {
   color: #61dafb;
 }
+
+.optionBtnCurrent {
+  background-color: orange;
+}
