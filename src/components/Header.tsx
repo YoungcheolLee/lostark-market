@@ -6,11 +6,10 @@ import { MarketOption, RequestMarketItems } from "../interfaces";
 export const Header = () => {
   const [marketOption, setMarketOption] = useState<MarketOption>();
   const [currentOption, setCurrentOption] = useState<RequestMarketItems>();
-  const [changeBtnColor, setChangeBtnColor] = useState<number>();
   const navigate = useNavigate();
 
   const getMarketOption = async () => {
-    const marketOptionResponse = await axios.get(
+    const marketOptionResponse = await axios.get<MarketOption>(
       "https://developer-lostark.game.onstove.com/markets/options",
       {
         headers: {
@@ -19,6 +18,7 @@ export const Header = () => {
         },
       }
     );
+
     setMarketOption(marketOptionResponse.data);
   };
 
@@ -60,43 +60,39 @@ export const Header = () => {
     navigate("/");
   };
 
-  const handleClickCategory = (categoryCode: number, index: number) => {
+  const handleClickCategory = (categoryCode: number) => {
     const requestMarketItem: RequestMarketItems = {
       ...currentOption,
       CategoryCode: categoryCode,
     };
     setCurrentOption(requestMarketItem);
-    setChangeBtnColor(index);
   };
 
-  const handleClickClass = (item: string, index: number) => {
+  const handleClickClass = (item: string) => {
     const requestMarketItem: RequestMarketItems = {
       ...currentOption,
       CharacterClass: item,
     };
 
     setCurrentOption(requestMarketItem);
-    setChangeBtnColor(index);
   };
 
-  const handleClickTier = (item: number, index: number) => {
+  const handleClickTier = (item: number) => {
     const requestMarketItem: RequestMarketItems = {
       ...currentOption,
       ItemTier: item,
     };
 
     setCurrentOption(requestMarketItem);
-    setChangeBtnColor(index);
   };
 
-  const handleClickGrade = (item: string, index: number) => {
+  const handleClickGrade = (item: string) => {
     const requestMarketItem: RequestMarketItems = {
       ...currentOption,
       ItemGrade: item,
     };
 
     setCurrentOption(requestMarketItem);
-    setChangeBtnColor(index);
   };
 
   const handleChangeItemName = (item: string) => {
@@ -120,11 +116,11 @@ export const Header = () => {
             <button
               className={[
                 "optionBtn",
-                changeBtnColor === idx ? "Current" : "",
+                currentOption?.CategoryCode === item.Code ? "Current" : "",
               ].join("")}
               key={idx}
-              onClick={(e) => {
-                handleClickCategory(item.Code, idx);
+              onClick={() => {
+                handleClickCategory(item.Code);
               }}
             >
               <div>{item.Code}</div>
@@ -138,10 +134,10 @@ export const Header = () => {
             <button
               className={[
                 "optionBtn",
-                changeBtnColor === idx ? "Current" : "",
+                currentOption?.CharacterClass === item ? "Current" : "",
               ].join("")}
               key={idx}
-              onClick={() => handleClickClass(item, idx)}
+              onClick={() => handleClickClass(item)}
             >
               {item}
             </button>
@@ -153,10 +149,10 @@ export const Header = () => {
             <button
               className={[
                 "optionBtn",
-                changeBtnColor === idx ? "Current" : "",
+                currentOption?.ItemTier === item ? "Current" : "",
               ].join("")}
               key={idx}
-              onClick={() => handleClickTier(item, idx)}
+              onClick={() => handleClickTier(item)}
             >
               {item}
             </button>
@@ -168,10 +164,10 @@ export const Header = () => {
             <button
               className={[
                 "optionBtn",
-                changeBtnColor === idx ? "Current" : "",
+                currentOption?.ItemGrade === item ? "Current" : "",
               ].join("")}
               key={idx}
-              onClick={() => handleClickGrade(item, idx)}
+              onClick={() => handleClickGrade(item)}
             >
               {item}
             </button>

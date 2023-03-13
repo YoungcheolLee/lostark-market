@@ -24,3 +24,14 @@
 .optionBtnCurrent {
   background-color: orange;
 }
+
+.searchResult-table-wrapper {
+  
+  margin-top: 50px;
+  border: 1px solid gray;
+  width: 100% 
+}
+
+.searchResult-thead {
+  border: 10px solid gray;
+}

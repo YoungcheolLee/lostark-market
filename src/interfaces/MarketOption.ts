@@ -3,6 +3,7 @@ export interface MarketOption {
   Classes: string[];
   ItemGrades: string[];
   ItemTiers: number[];
+
 }
 
 interface Category {
