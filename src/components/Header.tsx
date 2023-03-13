@@ -36,7 +36,6 @@ export const Header = () => {
         },
       }
     );
-    console.log("marketItemResponse", marketItemResponse);
     navigate("/searchResult", { state: marketItemResponse });
   };
 

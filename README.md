@@ -1,46 +1,26 @@
-# Getting Started with Create React App
+# 로스트아크 거래소 with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+로스트아크 API를 사용하여 거래소 검색 기능 구현
 
-## Available Scripts
+## 기술스택
 
-In the project directory, you can run:
+- TypeScript
+- ReactJS
+- ReactRouter
+- Axios
 
-### `yarn start`
+## 구현기능
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `선택한 검색옵션 색상 변경`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+✔️ currentOption useState 생성
+![currentOption_1](https://user-images.githubusercontent.com/107835019/224686849-54d63361-ad97-4162-9968-ce33f7307708.PNG)
 
-### `yarn test`
+✔️ 버튼 클릭 시 함수 이동
+![currentOption_2](https://user-images.githubusercontent.com/107835019/224686854-f1779306-682e-43fc-8322-6ed166e576ab.PNG)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+✔️ 이동한 함수에서 setCurrentOption에 선택한 버튼 데이터 추가 (첨부파일 기준 CategoryCode)
+![currentOption_3](https://user-images.githubusercontent.com/107835019/224686855-3e7bdc34-1f61-403c-bc69-a83936f99025.PNG)
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+✔️ map함수 내에서의 버튼 데이터와 currentOption에 저장된 버튼 데이터가 일치한다면 클릭한 버튼의 className 변경
+![currentOption_4](https://user-images.githubusercontent.com/107835019/224686856-80207b1c-e6ad-4ca8-86ab-5116b260ae25.PNG)
