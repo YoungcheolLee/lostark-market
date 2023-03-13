@@ -17,6 +17,10 @@
   color: #61dafb;
 }
 
+.title {
+  cursor: pointer;
+}
+
 .optionBtnCurrent {
   background-color: orange;
 }

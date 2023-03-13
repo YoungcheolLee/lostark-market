@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MarketOption, RequestMarketItems } from "../interfaces";
-import { SearchResult } from "../pages/SearchResult";
 
 export const Header = () => {
   const [marketOption, setMarketOption] = useState<MarketOption>();
   const [currentOption, setCurrentOption] = useState<RequestMarketItems>();
   const [changeBtnColor, setChangeBtnColor] = useState<number>();
+  const navigate = useNavigate();
 
   const getMarketOption = async () => {
     const marketOptionResponse = await axios.get(
@@ -36,6 +37,7 @@ export const Header = () => {
       }
     );
     console.log("marketItemResponse", marketItemResponse);
+    navigate("/searchResult", { state: marketItemResponse });
   };
 
   useEffect(() => {
@@ -49,10 +51,13 @@ export const Header = () => {
   const handleClickSearch = async () => {
     try {
       await postMarketOption();
-      <SearchResult />;
     } catch (e) {
       alert(e);
     }
+  };
+
+  const handleTitle = () => {
+    navigate("/");
   };
 
   const handleClickCategory = (categoryCode: number, index: number) => {
@@ -105,7 +110,9 @@ export const Header = () => {
 
   return (
     <div>
-      <h2>LostArk 거래소</h2>
+      <h2 className="title" onClick={handleTitle}>
+        LostArk 거래소
+      </h2>
       <div>
         <div>
           <p>카테고리</p>
