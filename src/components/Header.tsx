@@ -59,7 +59,7 @@ export const Header = () => {
   };
 
   const handleTitle = () => {
-    navigate("/");
+    navigate("/", { state: getMarketOption() });
   };
 
   const handleClickCategory = (categoryCode: number) => {

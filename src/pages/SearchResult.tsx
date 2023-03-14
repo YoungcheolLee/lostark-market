@@ -8,27 +8,24 @@ export const SearchResult = () => {
   return (
     <div>
       <table className="searchResult-table-wrapper">
-        <caption>검색 결과</caption>
+        <caption>
+          <h2>검색 결과</h2>
+        </caption>
         <thead>
           <tr>
             <th>등급</th>
-            <th>전인 평균 거래가</th>
+            <th>전일 평균 거래가</th>
             <th>최근 거래가</th>
             <th>최저가</th>
           </tr>
         </thead>
         <tbody>
+          {/* {marketItemData.Items} */}
           <tr>
             <th>이건</th>
-            <td>열</td>
-            <td>열2</td>
-            <td>열23</td>
           </tr>
           <tr>
             <th>이건</th>
-            <td>열22</td>
-            <td>열2</td>
-            <td>열2</td>
           </tr>
         </tbody>
       </table>
