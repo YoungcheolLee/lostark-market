@@ -5,7 +5,9 @@ import { MarketOption, RequestMarketItems } from "../interfaces";
 
 export const Header = () => {
   const [marketOption, setMarketOption] = useState<MarketOption>();
-  const [currentOption, setCurrentOption] = useState<RequestMarketItems>();
+  const [currentOption, setCurrentOption] = useState<RequestMarketItems>({
+    CategoryCode: 20000,
+  });
   const navigate = useNavigate();
 
   const getMarketOption = async () => {

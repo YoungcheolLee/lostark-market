@@ -11,10 +11,10 @@ export const SearchResult = () => {
         <caption>검색 결과</caption>
         <thead>
           <tr>
-            <th>목록</th>
-            <th>요기</th>
-            <th>요기</th>
-            <th>요기</th>
+            <th>등급</th>
+            <th>전인 평균 거래가</th>
+            <th>최근 거래가</th>
+            <th>최저가</th>
           </tr>
         </thead>
         <tbody>
