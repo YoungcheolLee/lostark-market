@@ -36,7 +36,8 @@ export const Header = () => {
         },
       }
     );
-    navigate("/searchResult", { state: marketItemResponse });
+
+    navigate("/searchResult", { state: marketItemResponse.data });
   };
 
   useEffect(() => {
