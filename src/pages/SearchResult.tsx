@@ -9,11 +9,13 @@ export const SearchResult = () => {
     <div>
       <table className="searchResult-table-wrapper">
         <caption>검색 결과</caption>
-        <thead className="searchResult-thead">
-          <th>목록</th>
-          <th>요기</th>
-          <th>요기</th>
-          <th>요기</th>
+        <thead>
+          <tr>
+            <th>목록</th>
+            <th>요기</th>
+            <th>요기</th>
+            <th>요기</th>
+          </tr>
         </thead>
         <tbody>
           <tr>
