@@ -35,3 +35,8 @@
 .searchResult-thead {
   border: 10px solid gray;
 }
+
+.itemImg {
+  width: 30px;
+  height: 30px;
+}
