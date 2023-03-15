@@ -1,15 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MarketOption, RequestMarketItems } from "../interfaces";
+import { MarketList, MarketOption, RequestMarketItems } from "../interfaces";
 
 export const Header = () => {
+  // user가 선택할 수 있는 옵션 state
   const [marketOption, setMarketOption] = useState<MarketOption>();
+
+  // user가 선택한 옵션에 해당하는 데이터를 보관하는 state
   const [currentOption, setCurrentOption] = useState<RequestMarketItems>({
     CategoryCode: 20000,
+    PageNo: 2,
   });
+
+  // 페이지 이동에 필요한 기능
   const navigate = useNavigate();
 
+  // user가 선택할 수 있는 옵션들을 HTTP통신을 통해 API요청 하여 marketOption state에 저장하는 함수
   const getMarketOption = async () => {
     const marketOptionResponse = await axios.get<MarketOption>(
       "https://developer-lostark.game.onstove.com/markets/options",
@@ -24,11 +31,13 @@ export const Header = () => {
     setMarketOption(marketOptionResponse.data);
   };
 
+  // user가 선택한 옵션(currentOption)에 해당하는 데이터들을 HTTP통신을 통해 API 요청하여
+  // searchResult 컴포넌트로 데이터들과 함께 이동하는 함수
   const postMarketOption = async () => {
     if (!currentOption || !currentOption.CategoryCode) {
       throw new Error("카테고리는 필수 입력 값입니다.");
     }
-    const marketItemResponse = await axios.post(
+    const marketItemResponse = await axios.post<MarketList>(
       "https://developer-lostark.game.onstove.com/markets/items",
       currentOption,
       {
@@ -39,17 +48,29 @@ export const Header = () => {
       }
     );
 
+    console.log("marketItemResponse", marketItemResponse);
     navigate("/searchResult", { state: marketItemResponse.data });
+
+    return marketItemResponse.data;
   };
 
+  const totalItems = async () => {
+    const a = await postMarketOption();
+
+    return a.TotalCount;
+  };
+
+  // 페이지가 처음 렌더링될때 한번만 getMarketOption 함수를 실행시키는 함수
   useEffect(() => {
     getMarketOption();
   }, []);
 
+  // 유저가 옵션을 바꿀때마다 실행되는 함수
   useEffect(() => {
     console.log("검색옵션이 바뀌었습니다: ", currentOption);
   }, [currentOption]);
 
+  // 검색 버튼이 클릭 됬을 때 postMarketOption함수를 실행시켜주는 함수
   const handleClickSearch = async () => {
     try {
       await postMarketOption();
@@ -58,7 +79,8 @@ export const Header = () => {
     }
   };
 
-  const handleTitle = () => {
+  //
+  const handleClickTitle = () => {
     navigate("/", { state: getMarketOption() });
   };
 
@@ -66,8 +88,10 @@ export const Header = () => {
     const requestMarketItem: RequestMarketItems = {
       ...currentOption,
       CategoryCode: categoryCode,
+      // PageNo: 7,
     };
     setCurrentOption(requestMarketItem);
+    console.log("requestMarketItem", requestMarketItem);
   };
 
   const handleClickClass = (item: string) => {
@@ -108,7 +132,7 @@ export const Header = () => {
 
   return (
     <div>
-      <h2 className="title" onClick={handleTitle}>
+      <h2 className="title" onClick={handleClickTitle}>
         LostArk 거래소
       </h2>
       <div>

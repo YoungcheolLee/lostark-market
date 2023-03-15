@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { MarketList, RequestMarketItems } from "../interfaces";
+import { MarketList } from "../interfaces";
 
 export const SearchResult = () => {
   const location = useLocation();
   const marketItemData: MarketList = location.state;
   console.log("marketItemData:", marketItemData);
+
+  // 페이징처리
+  const [totalData, setTotalData] = useState(marketItemData.TotalCount);
 
   return (
     <div>
@@ -23,7 +27,7 @@ export const SearchResult = () => {
         </thead>
         <tbody>
           {marketItemData.Items.map((item, idx) => (
-            <tr>
+            <tr key={idx}>
               <td>
                 <img className="itemImg" src={item.Icon} alt={"itemImg"} />
                 {item.Name}
@@ -36,6 +40,7 @@ export const SearchResult = () => {
           ))}
         </tbody>
       </table>
+      <h3>총 {marketItemData.TotalCount}개</h3>
     </div>
   );
 };
