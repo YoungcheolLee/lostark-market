@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { MarketList } from "../interfaces";
 
@@ -7,14 +7,37 @@ export const SearchResult = () => {
   const marketItemData: MarketList = location.state;
   console.log("marketItemData:", marketItemData);
 
-  // 페이징처리
-  const [totalData, setTotalData] = useState(marketItemData.TotalCount);
+  // 페이지의 총 개수를 구하는 함수
+  const getTotalPageNumber = () => {
+    const totalItems = marketItemData.TotalCount;
+    const itemPageSize = marketItemData.PageSize;
+
+    const totalpageNo = Math.ceil(totalItems / itemPageSize);
+
+    return totalpageNo;
+  };
+
+  // page버튼을 만드는 함수
+  const makePageButton = () => {
+    let pageArr = [];
+    for (let i = 1; i <= getTotalPageNumber(); i++) {
+      pageArr.push(i);
+    }
+
+    console.log("pageNo =", pageArr);
+
+    return pageArr;
+  };
+
+  useEffect(() => {
+    getTotalPageNumber();
+  }, [marketItemData]);
 
   return (
     <div>
       <table className="searchResult-table-wrapper">
         <caption>
-          <h2>검색 결과</h2>
+          <h2>검색 결과: {marketItemData.TotalCount}개</h2>
         </caption>
         <thead>
           <tr>
@@ -40,7 +63,9 @@ export const SearchResult = () => {
           ))}
         </tbody>
       </table>
-      <h3>총 {marketItemData.TotalCount}개</h3>
+      {makePageButton().map((item, idx) => (
+        <button>{item}</button>
+      ))}
     </div>
   );
 };

@@ -10,7 +10,6 @@ export const Header = () => {
   // user가 선택한 옵션에 해당하는 데이터를 보관하는 state
   const [currentOption, setCurrentOption] = useState<RequestMarketItems>({
     CategoryCode: 20000,
-    PageNo: 2,
   });
 
   // 페이지 이동에 필요한 기능
@@ -48,16 +47,7 @@ export const Header = () => {
       }
     );
 
-    console.log("marketItemResponse", marketItemResponse);
     navigate("/searchResult", { state: marketItemResponse.data });
-
-    return marketItemResponse.data;
-  };
-
-  const totalItems = async () => {
-    const a = await postMarketOption();
-
-    return a.TotalCount;
   };
 
   // 페이지가 처음 렌더링될때 한번만 getMarketOption 함수를 실행시키는 함수
