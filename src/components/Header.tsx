@@ -3,13 +3,18 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MarketList, MarketOption, RequestMarketItems } from "../interfaces";
 
-export const Header = () => {
+interface Props {
+  currentPage: number;
+}
+
+export const Header = (props:Props) => {
   // user가 선택할 수 있는 옵션 state
   const [marketOption, setMarketOption] = useState<MarketOption>();
 
   // user가 선택한 옵션에 해당하는 데이터를 보관하는 state
   const [currentOption, setCurrentOption] = useState<RequestMarketItems>({
     CategoryCode: 20000,
+    pageNo: props.currentPage,
   });
 
   // 페이지 이동에 필요한 기능

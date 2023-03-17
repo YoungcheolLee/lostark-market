@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { MarketList } from "../interfaces";
 
+interface Props {
+  onClickPageButton?: (pageNo: number) => void;
+}
+
 export const SearchResult = () => {
   const location = useLocation();
   const marketItemData: MarketList = location.state;
@@ -24,14 +28,14 @@ export const SearchResult = () => {
       pageArr.push(i);
     }
 
-    console.log("pageNo =", pageArr);
-
     return pageArr;
   };
 
-  useEffect(() => {
-    getTotalPageNumber();
-  }, [marketItemData]);
+  const handleClickPageButton = (pageNo: number) => {
+    if(onClickPageButton) {
+      onClickPageButton(pageNo);
+    }
+  }
 
   return (
     <div>
@@ -64,7 +68,7 @@ export const SearchResult = () => {
         </tbody>
       </table>
       {makePageButton().map((item, idx) => (
-        <button>{item}</button>
+        <button key={item} onClick={() => { handleClickPageButton(item); }}>{item}</button>
       ))}
     </div>
   );
