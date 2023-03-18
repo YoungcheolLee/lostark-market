@@ -80,7 +80,7 @@ export const Header = (props: Props) => {
     };
     setCurrentOption(changeCurrentPage);
     postMarketOption();
-  }, [props]);
+  }, [props.currentPage]);
 
   // 검색 버튼이 클릭 됬을 때 postMarketOption함수를 실행시켜주는 함수
   const handleClickSearch = async () => {

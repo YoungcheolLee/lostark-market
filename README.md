@@ -28,3 +28,42 @@
 ✔️ map함수 내에서의 버튼 데이터와 currentOption에 저장된 버튼 데이터가 일치한다면 클릭한 버튼의 className 변경
 
 ![currentOption_4](https://user-images.githubusercontent.com/107835019/224686856-80207b1c-e6ad-4ca8-86ab-5116b260ae25.PNG)
+
+### `검색결과 pagination 구현 과정`
+
+1. SearchResult.tsx
+
+- getTotalPageNumber 함수 정의
+- client에서 선택한 옵션의 총 데이터와 한 페이지당 보여지는 수 나눈 결과 값을 올림하여 총 페이지 수를 구하는 함수 생성
+
+2. SearchResult.tsx
+
+- makePageButton 함수 정의
+- 총 페이지 수를 숫자배열에 담아 반환하는 함수 생성
+
+3. SearchResult.tsx
+
+- makePageButton().map 함수 사용
+- 2번의 makePageButton의 배열 값을 map을 함수를 통해 화면에 출력
+
+4. SearchResult.tsx
+
+- 페이지 버튼 클릭 시 handleClickPageButton(item) 함수 실행
+- client에서 선택한 pageNo를 매개변수를 통해 전달
+- props의 onClickPageButton(pageNo) 를 통해 부모 컴포넌트인 Router.tsx, Main.tsx 에 전달
+
+5. Router.tsx, Main.tsx
+
+- handleClickPageButton(pageNo) 함수를 통해 pageNo를 함수의 매개변수를 통해 전달받음
+
+6. Main.tsx
+
+- currentPage, setCurrent란 state 정의
+- handleClickPage 함수 정의
+- handleClickPage 함수에서 매개변수로 전달받은 pageNo를 setCurrentPage의 매개변수로 pageNo를 담아줌
+
+7. Header.tsx
+
+- Header.tsx에 props로 pageNo인 currentPage를 전달받음
+- useEffect() 구문을 추가하고 디펜던시어레이에 props를 넣어 props 변화를 감지
+- PageNo에 props로 전달받은 currentPage를 할당 하고 HTTP 통신하여 다시 SearchResult 페이지를 그려주어 client에서 선택한 페이지의 데이터를 출력
