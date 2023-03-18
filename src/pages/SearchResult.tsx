@@ -28,14 +28,6 @@ export const SearchResult = (props: Props) => {
     return pageArr;
   };
 
-  // 페이지 버튼을 눌렀을 때 실행되는 함수
-  const handleClickPageButton = (pageNo: number) => {
-    console.log("onClick 페이지:", pageNo);
-    if (props.onClickPageButton) {
-      props.onClickPageButton(pageNo);
-    }
-  };
-
   return (
     <div>
       <table className="searchResult-table-wrapper">
@@ -67,9 +59,7 @@ export const SearchResult = (props: Props) => {
         </tbody>
       </table>
       {makePageButton().map((item) => (
-        <button key={item} onClick={() => handleClickPageButton(item)}>
-          {item}
-        </button>
+        <button key={item}>{item}</button>
       ))}
     </div>
   );
