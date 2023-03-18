@@ -8,13 +8,18 @@ interface Props {
 }
 
 export const Header = (props: Props) => {
+  console.log(
+    "Main.tsx에서 Header로 보낸 currentPage의 값:",
+    props.currentPage
+  );
+
   // user가 선택할 수 있는 옵션 state
   const [marketOption, setMarketOption] = useState<MarketOption>();
 
   // user가 선택한 옵션에 해당하는 데이터를 보관하는 state
   const [currentOption, setCurrentOption] = useState<RequestMarketItems>({
     CategoryCode: 20000,
-    PageNo: props.currentPage,
+    // PageNo: props.currentPage,
   });
 
   // 페이지 이동에 필요한 기능
@@ -62,8 +67,20 @@ export const Header = (props: Props) => {
 
   // 유저가 옵션을 바꿀때마다 실행되는 함수
   useEffect(() => {
-    // console.log("검색옵션이 바뀌었습니다: ", currentOption);
+    //console.log("검색옵션이 바뀌었습니다: ", currentOption);
   }, [currentOption]);
+
+  // props가 변화할 할 때 PageNo에 변화된 페이지 숫자를 할당하여
+  // postMarketOption 함수 실행
+  useEffect(() => {
+    console.log("props 변화감지", props);
+    const changeCurrentPage: RequestMarketItems = {
+      ...currentOption,
+      PageNo: props.currentPage,
+    };
+    setCurrentOption(changeCurrentPage);
+    postMarketOption();
+  }, [props]);
 
   // 검색 버튼이 클릭 됬을 때 postMarketOption함수를 실행시켜주는 함수
   const handleClickSearch = async () => {

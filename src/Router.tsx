@@ -11,6 +11,7 @@ export const Router = ({ onClickPageButton }: Props) => {
   const handleClickPageButton = (pageNo: number) => {
     if (onClickPageButton) {
       onClickPageButton(pageNo);
+      // console.log("SearchResult에서 Router로 전달해준 pageNo:", pageNo);
     }
   };
 
