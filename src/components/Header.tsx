@@ -3,13 +3,18 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MarketList, MarketOption, RequestMarketItems } from "../interfaces";
 
-export const Header = () => {
+interface Props {
+  currentPage: number;
+}
+
+export const Header = (props: Props) => {
   // user가 선택할 수 있는 옵션 state
   const [marketOption, setMarketOption] = useState<MarketOption>();
 
   // user가 선택한 옵션에 해당하는 데이터를 보관하는 state
   const [currentOption, setCurrentOption] = useState<RequestMarketItems>({
     CategoryCode: 20000,
+    PageNo: props.currentPage,
   });
 
   // 페이지 이동에 필요한 기능
@@ -57,12 +62,14 @@ export const Header = () => {
 
   // 유저가 옵션을 바꿀때마다 실행되는 함수
   useEffect(() => {
-    console.log("검색옵션이 바뀌었습니다: ", currentOption);
+    // console.log("검색옵션이 바뀌었습니다: ", currentOption);
   }, [currentOption]);
 
   // 검색 버튼이 클릭 됬을 때 postMarketOption함수를 실행시켜주는 함수
   const handleClickSearch = async () => {
     try {
+      // const currentPage = 1;
+      // props.currentPage(currentPage);
       await postMarketOption();
     } catch (e) {
       alert(e);
@@ -78,10 +85,8 @@ export const Header = () => {
     const requestMarketItem: RequestMarketItems = {
       ...currentOption,
       CategoryCode: categoryCode,
-      // PageNo: 7,
     };
     setCurrentOption(requestMarketItem);
-    console.log("requestMarketItem", requestMarketItem);
   };
 
   const handleClickClass = (item: string) => {

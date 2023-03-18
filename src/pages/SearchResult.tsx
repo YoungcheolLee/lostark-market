@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { MarketList } from "../interfaces";
 
-export const SearchResult = () => {
+interface Props {
+  onClickPageButton?: (pageNo: number) => void;
+}
+
+export const SearchResult = (props: Props) => {
   const location = useLocation();
   const marketItemData: MarketList = location.state;
-  console.log("marketItemData:", marketItemData);
 
   // 페이지의 총 개수를 구하는 함수
   const getTotalPageNumber = () => {
@@ -23,15 +25,16 @@ export const SearchResult = () => {
     for (let i = 1; i <= getTotalPageNumber(); i++) {
       pageArr.push(i);
     }
-
-    console.log("pageNo =", pageArr);
-
     return pageArr;
   };
 
-  useEffect(() => {
-    getTotalPageNumber();
-  }, [marketItemData]);
+  // 페이지 버튼을 눌렀을 때 실행되는 함수
+  const handleClickPageButton = (pageNo: number) => {
+    console.log("onClick 페이지:", pageNo);
+    if (props.onClickPageButton) {
+      props.onClickPageButton(pageNo);
+    }
+  };
 
   return (
     <div>
@@ -63,8 +66,10 @@ export const SearchResult = () => {
           ))}
         </tbody>
       </table>
-      {makePageButton().map((item, idx) => (
-        <button>{item}</button>
+      {makePageButton().map((item) => (
+        <button key={item} onClick={() => handleClickPageButton(item)}>
+          {item}
+        </button>
       ))}
     </div>
   );
